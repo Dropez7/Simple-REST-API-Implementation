@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../../Projetos"
+		},
+		{
+			"path": "../../../Faculdade/4º Periodo/Fisica - Site"
+		},
+		{
+			"path": "../../../Faculdade/4º Periodo/Linguagem de Programação/Go tests"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Fisica - Site"
+	}
+}
