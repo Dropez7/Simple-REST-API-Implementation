@@ -4,6 +4,7 @@ import express from 'express'; // graças ao sucrase
 import homeRoutes from './src/routes/homeRoutes';
 import userRoutes from './src/routes/userRoutes';
 import tokenRoutes from './src/routes/tokenRoutes';
+import alunoRoutes from './src/routes/alunoRoutes';
 import './src/database'; // chamando o index.js da pasta database para iniciar a conexão com os models
 // Importa o dotenv
 dotenv.config(); // Importa as rotas da home
@@ -27,6 +28,7 @@ class App {
     this.app.use('/', homeRoutes); // Vai usar as rotas da home
     this.app.use('/users/', userRoutes); // Vai usar as rotas de users
     this.app.use('/tokens/', tokenRoutes); // Vai usar as rotas de tokens
+    this.app.use('/alunos/', alunoRoutes);
   }
 }
 

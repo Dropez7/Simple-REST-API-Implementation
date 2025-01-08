@@ -10,7 +10,7 @@ const routes = new Router();
 // routes.get('/:id', userController.show); // Vai chamar o método show na classe UserController
 
 // Também n faz mt sentido mas vou deixar pq fica melhor pra testar
-routes.get('/', userController.index); // Vai chamar o método index na classe UserController
+// routes.get('/', userController.index); // Vai chamar o método index na classe UserController
 
 routes.post('/', userController.store); // Vai chamar o método store na classe UserController
 routes.put('/', loginRequired, userController.update); // Vai chamar o método update na classe UserController
