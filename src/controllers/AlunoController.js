@@ -1,9 +1,20 @@
 import Aluno from '../models/Aluno'; // Importa o model Aluno
+import Foto from '../models/Foto'; // Importa o model Foto
 
 class AlunoController {
   async index(req, res) {
     try {
-      const alunos = await Aluno.findAll();
+      const alunos = await Aluno.findAll({
+        attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+        order: [
+          ['id', 'DESC'],
+          [Foto, 'id', 'DESC'],
+        ],
+        include: {
+          model: Foto,
+          attributes: ['filename'],
+        },
+      });
 
       if (!alunos) {
         return res.status(400).json({
@@ -14,7 +25,7 @@ class AlunoController {
       return res.json(alunos);
     } catch (e) {
       return res.status(400).json({
-        errors: e.errors.map((err) => err.message),
+        e,
       });
     }
   }
@@ -45,7 +56,17 @@ class AlunoController {
         });
       }
 
-      const aluno = await Aluno.findByPk(id);
+      const aluno = await Aluno.findByPk(id, {
+        attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+        order: [
+          ['id', 'DESC'],
+          [Foto, 'id', 'DESC'],
+        ],
+        include: {
+          model: Foto,
+          attributes: ['filename'],
+        },
+      });
 
       if (!aluno) {
         return res.status(400).json({

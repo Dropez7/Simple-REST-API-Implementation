@@ -73,4 +73,8 @@ export default class Aluno extends Model { // Criando a classe Aluno que extende
     });
     return this;
   }
+
+  static associate(models) {
+    this.hasMany(models.Foto, { foreignKey: 'aluno_id' }); // Um aluno tem muitas fotos
+  }
 }

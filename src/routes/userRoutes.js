@@ -13,8 +13,8 @@ const routes = new Router();
 // routes.get('/', userController.index); // Vai chamar o método index na classe UserController
 
 routes.post('/', userController.store); // Vai chamar o método store na classe UserController
-routes.put('/', loginRequired, userController.update); // Vai chamar o método update na classe UserController
-routes.delete('/', loginRequired, userController.delete); // Vai chamar o método delete na classe UserController
+routes.put('/:id', loginRequired, userController.update); // Vai chamar o método update na classe UserController
+routes.delete('/:id', loginRequired, userController.delete); // Vai chamar o método delete na classe UserController
 export default routes;
 
 // Por padrão, temos até 5 métodos que podemos usar em um controller:
