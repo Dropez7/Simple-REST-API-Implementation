@@ -1,37 +1,23 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import multer from 'multer';
-
-// eslint-disable-next-line
-import multerconfig from '../config/multerconfig'; // uso isso aqui como um middleware
+import multerConfig from '../config/multerConfig';
 
 import Foto from '../models/Foto';
 
-const upload = multer(multerconfig).single('Foto');
+const upload = multer(multerConfig).single('foto');
 
 class FotoController {
-  async store(req, res) {
-    return upload(req, res, (err) => { // é do proprio multer
-      if (err) {
+  store(req, res) {
+    return upload(req, res, async (error) => {
+      if (error) {
         return res.status(400).json({
-          errors: [err.code],
+          errors: [error],
         });
       }
 
-      try { // melhor do que verificar no bd pelo trabalho que vai dar
-        const {
-          originalname,
-          filename,
-        } = req.file;
-
-        const {
-          aluno_id,
-        } = req.body;
-
-        const foto = Foto.create({
-          originalname,
-          filename,
-          aluno_id,
-        });
+      try {
+        const { originalname, filename } = req.file;
+        const { aluno_id } = req.body;
+        const foto = await Foto.create({ originalname, filename, aluno_id });
 
         return res.json(foto);
       } catch (e) {
@@ -43,4 +29,4 @@ class FotoController {
   }
 }
 
-export default new FotoController(); // Exporta uma instância da classe HomeController
+export default new FotoController();

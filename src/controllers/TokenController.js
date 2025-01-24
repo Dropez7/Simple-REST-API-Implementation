@@ -30,7 +30,7 @@ class TokenController {
     // options: Configurações do token
     // expiresIn: Tempo de expiração do token
     const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, { expiresIn: process.env.TOKEN_EXPIRATION }); // Criando o token
-    return res.json({ token }); // Retornando o token
+    return res.json({ token, user: { nome: user.nome, id, email } }); // Retornando o token
   }
 }
 

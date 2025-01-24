@@ -1,16 +1,15 @@
-import Sequelize, {
-  Model,
-} from 'sequelize'; // Importando o Sequelize e o Model de dentro do Sequelize
+import Sequelize, { Model } from 'sequelize';
+import appConfig from '../config/appConfig';
 
 export default class Foto extends Model {
-  static init(sequelize) { // Método estático init que recebe o sequelize
-    super.init({ // é a mesma coisa q na migration, mas aqui é um objeto referente a modelagem, la era a criação
+  static init(sequelize) {
+    super.init({
       originalname: {
         type: Sequelize.STRING,
         defaultValue: '',
         validate: {
           notEmpty: {
-            msg: 'Campo não pode ficar vazio',
+            msg: 'Campo não pode ficar vazio.',
           },
         },
       },
@@ -19,19 +18,24 @@ export default class Foto extends Model {
         defaultValue: '',
         validate: {
           notEmpty: {
-            msg: 'Campo não pode ficar vazio',
+            msg: 'Campo não pode ficar vazio.',
           },
+        },
+      },
+      url: {
+        type: Sequelize.VIRTUAL,
+        get() {
+          return `${appConfig.url}/images/${this.getDataValue('filename')}`;
         },
       },
     }, {
       sequelize,
+      tableName: 'fotos',
     });
     return this;
   }
 
-  // static associate(models) {
-  //   this.belongsTo(models.Aluno, { // Esse model pertece a um aluno
-  //     foreignKey: 'aluno_id',
-  //   });
-  // }
+  static associate(models) {
+    this.belongsTo(models.Aluno, { foreignKey: 'aluno_id' });
+  }
 }
